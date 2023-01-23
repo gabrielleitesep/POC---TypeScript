@@ -2,6 +2,7 @@
 Proof of concept about TypeScript CRUD, based on a bookstore project
 
 
+
 # API Documentation
 POST: "/book
 Body: {
@@ -20,3 +21,12 @@ Body: {
 }
 ----------------------------------
 DELETE: "/book/:id"
+----------------------------------
+
+
+
+# Installation
+1- Run npm install.
+2- Create a Postgres database.
+3- Create the .env file with the .env.example according informations.
+4- Run npm run dev.
