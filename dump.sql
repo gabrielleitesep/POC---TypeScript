@@ -27,7 +27,9 @@ SET default_table_access_method = heap;
 CREATE TABLE public.books (
     id integer NOT NULL,
     title text NOT NULL,
-    author text NOT NULL
+    author text NOT NULL,
+    genre_id integer,
+    contry_id integer
 );
 
 
@@ -52,6 +54,66 @@ ALTER SEQUENCE public.books_id_seq OWNED BY public.books.id;
 
 
 --
+-- Name: contries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.contries (
+    id integer NOT NULL,
+    contry text NOT NULL
+);
+
+
+--
+-- Name: contries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.contries_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: contries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.contries_id_seq OWNED BY public.contries.id;
+
+
+--
+-- Name: genres; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.genres (
+    id integer NOT NULL,
+    genre text NOT NULL
+);
+
+
+--
+-- Name: genres_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.genres_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: genres_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.genres_id_seq OWNED BY public.genres.id;
+
+
+--
 -- Name: books id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -59,26 +121,56 @@ ALTER TABLE ONLY public.books ALTER COLUMN id SET DEFAULT nextval('public.books_
 
 
 --
+-- Name: contries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.contries ALTER COLUMN id SET DEFAULT nextval('public.contries_id_seq'::regclass);
+
+
+--
+-- Name: genres id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.genres ALTER COLUMN id SET DEFAULT nextval('public.genres_id_seq'::regclass);
+
+
+--
 -- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.books VALUES (5, 'Pequeno Principe', 'José');
-INSERT INTO public.books VALUES (6, 'Pequeno Principe', 'José');
-INSERT INTO public.books VALUES (7, 'Pequeno Principe', 'José');
-INSERT INTO public.books VALUES (8, 'Pequeno Principe', 'José');
-INSERT INTO public.books VALUES (11, 'Pequeno Principe', 'Carlin');
-INSERT INTO public.books VALUES (12, 'Pequeno Principe', 'Carlin');
-INSERT INTO public.books VALUES (13, 'Pequeno Principe', 'Carlin');
-INSERT INTO public.books VALUES (9, 'o livro brabo', 'Carlinhos blabla');
-INSERT INTO public.books VALUES (14, 'o livro mais brabo ainda', '488');
-INSERT INTO public.books VALUES (10, 'o livro mais brabo ainda', '488');
+
+
+--
+-- Data for Name: contries; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+
+
+--
+-- Data for Name: genres; Type: TABLE DATA; Schema: public; Owner: -
+--
+
 
 
 --
 -- Name: books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.books_id_seq', 14, true);
+SELECT pg_catalog.setval('public.books_id_seq', 1, false);
+
+
+--
+-- Name: contries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.contries_id_seq', 1, false);
+
+
+--
+-- Name: genres_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.genres_id_seq', 1, false);
 
 
 --
@@ -87,6 +179,38 @@ SELECT pg_catalog.setval('public.books_id_seq', 14, true);
 
 ALTER TABLE ONLY public.books
     ADD CONSTRAINT books_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: contries contries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.contries
+    ADD CONSTRAINT contries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: genres genres_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.genres
+    ADD CONSTRAINT genres_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: books books_contry_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.books
+    ADD CONSTRAINT books_contry_id_fkey FOREIGN KEY (contry_id) REFERENCES public.contries(id);
+
+
+--
+-- Name: books books_genre_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.books
+    ADD CONSTRAINT books_genre_id_fkey FOREIGN KEY (genre_id) REFERENCES public.genres(id);
 
 
 --

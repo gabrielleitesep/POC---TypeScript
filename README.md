@@ -1,5 +1,5 @@
-# POC - TypeScript
-Proof of concept about TypeScript CRUD, based on a bookstore project
+# POC - Prisma
+Proof of concept about Prisma, based on a bookstore project
 
 
 
